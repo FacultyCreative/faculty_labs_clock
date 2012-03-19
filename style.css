@@ -1,0 +1,417 @@
+/* =================================
+// The Present is a Present
+// Brought to you by Faculty Creative
+// Coded with love in the city of brotherly love, 2011 
+/* ===============================*/
+/* Thanks to the following for useful tools and informative demos:
+// http://matthewlein.com/ceaser/
+// http://www.paulrhayes.com/2009-03/an-analogue-clock-using-only-css/
+// http://www.sitepoint.com/creating-accurate-timers-in-javascript/
+// http://www.colorzilla.com/gradient-editor/
+/* ===============================*/
+
+
+/* =================================
+// Reset 
+/* ===============================*/
+/* Global reset */
+/* Based upon 'reset.css' in the Yahoo! User Interface Library: http://developer.yahoo.com/yui */
+*, html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, label, fieldset, input, p, blockquote, th, td { margin:0; padding:0 }
+table { border-collapse:collapse; border-spacing:0 }
+fieldset, img { border:0 }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal }
+ol, ul, li { list-style:none }
+caption, th { text-align:left }
+h1, h2, h3, h4, h5, h6 { font-size:100%; font-weight:normal }
+q:before, q:after { content:''}
+
+/* Global reset-RESET */
+/* The below restores some sensible defaults */
+strong { font-weight:bold }
+em { font-style:italic }
+a img { border:none } /* Gets rid of IE's blue borders */
+
+
+
+/* =================================
+// General 
+/* ===============================*/
+html, body {height: 100%; }
+
+body {
+	background: #c9c9c9; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #c9c9c9 8%, #3d3d3d 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(8%,#c9c9c9), color-stop(100%,#3d3d3d)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #c9c9c9 8%,#3d3d3d 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #c9c9c9 8%,#3d3d3d 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #c9c9c9 8%,#3d3d3d 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, #c9c9c9 8%,#3d3d3d 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9c9c9', endColorstr='#3d3d3d',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	
+	text-align: center;
+	font-size: 0.8em;
+	color: white;
+	font-family: "Georgia", serif;
+	text-transform: lowercase;
+	
+	font-weight: 100;
+	background-position: 0 0;
+  	background-attachment:fixed;
+	
+	
+
+}
+
+a {
+	color: #3e3e3e;
+	-moz-transition: color 0.3s ease-out;
+	-webkit-transition: color 0.3s ease-out;
+}
+
+a:hover {
+	color: white;
+}
+
+
+
+/* =================================
+// Clock wrapper 
+/* ===============================*/
+
+#main_wrapper {
+	width: 720px;
+	height: 575px;
+	margin: 0 auto;
+	position: relative;
+	margin-top: -25px;
+	min-width: 720px;
+	max-width: 1140px;
+}
+
+
+#content{
+	width: 100%;
+	height: 100%;
+}
+
+#warning {
+	width: 100%;
+	margin-top: 100px;
+	display: none;
+	margin-bottom: 60px;
+}
+
+#warning h2 {
+	margin: 30px 150px 0;
+}
+
+/* applies to GIF and PNG images; avoids blurry edges */
+
+img {
+	image-rendering: -moz-crisp-edges;         /* Firefox */
+	-ms-interpolation-mode: nearest-neighbor;  /* IE */
+}
+
+#content img {
+	position: absolute;
+}
+
+
+#footer {
+	margin-top: 30px;
+	padding-bottom: 30px;
+
+}
+
+#theSecondsElapsed, 
+#theSecondsNow {
+	display: none;
+}
+
+h1, h2 {
+	font-size: 3em;
+	text-transform: lowercase;
+	text-shadow: 0 1px 0 #3e3e3e;
+}
+
+h2 {
+	font-size: 1.6em;
+}
+
+h1 a, h2 a {
+	text-shadow: none !important;
+}
+
+h1 a:hover, h2 a:hover {
+	text-shadow: 0 1px 0 #3e3e3e !important;
+}
+
+#tunes audio {
+	margin-top: 40px;
+	
+}
+
+
+
+
+/* =================================
+// IE fix because for now this animation is webkit and Moz only. :( 
+/* ===============================*/
+
+html.ie #content { display: none; }
+html.ie #warning {display: block; }
+
+
+/* =================================
+// Clock parts 
+/* ===============================*/
+#clockDial_wrapper {
+	position: absolute;
+	top: 298.99999px;
+	left: 360.24535px;
+	-moz-transform-origin: 4px 31px;
+	-webkit-transform-origin: 4px 31px;
+}
+
+#clockDial {
+	-moz-transform-origin: 4px 31px;
+	-webkit-transform-origin: 4px 31px;
+}
+
+#clockDial_wrapper img {
+	position: absolute;
+}
+
+#clockRing {
+	top: 275px;
+	left: 310.2px;
+	-moz-transition: -moz-transform 1s linear;
+	-webkit-transition: -webkit-transform 1s linear;
+}
+
+#clockBody {
+	top: 247.52778px;
+	left: 318.04165px; 
+}
+
+
+
+/* =================================
+// Other parts 
+/* ===============================*/
+#bannerPresent {
+	top: 210px;
+	left: 265px;
+	-moz-transform-origin: center 100px;
+	-moz-transition: -moz-transform 3s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+	-webkit-transform-origin: center 100px;
+	-webkit-transition: -webkit-transform 3s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+}
+
+#bannerDots {
+	top: 218px;
+	left: 268.18517px;
+	-moz-transition: -moz-transform 0.6s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+	-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+}
+
+#doyle {
+	top: 174px;
+	left: 224px;
+	-moz-transition: -moz-transform 2s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+	-webkit-transition: -webkit-transform 2s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+}
+
+#eyes {
+	top: 123.00001px;
+	left: 174px;
+}
+
+
+
+
+/* =================================
+// Logo parts 
+/* ===============================*/
+#facultyLogo1 {
+	top: 96.56481px;
+	left: 374.99999px; 	
+}
+
+#facultyLogo2 {
+	top: 191.00004px;
+	left: 473px;
+}
+#facultyLogo3 {
+	top: 327.00001px;
+	left: 470.99999px;
+}
+#facultyLogo4 {
+	top: 422.00004px;
+	left: 375px;
+}
+#facultyLogo5 {
+	top: 422.00004px;
+	left: 240px;
+}
+#facultyLogo6 { 
+	top: 327.0463px;
+	left: 146.03702px;
+}
+#facultyLogo7 {
+	top: 190.78705px;
+	left: 146.29631px;
+}
+#facultyLogo8 {
+	top: 96.56481px;
+	left: 240px; 
+}
+
+.fLogo {
+	display: block;
+}
+
+#content .fLogo {
+	-moz-transition: -moz-transform 0.4s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+	-webkit-transition: -webkit-transform 0.4s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+}
+
+
+
+/* =================================
+// Spirals 
+/* ===============================*/
+#spiral1 { 
+	top: 387.26385px;
+	left: 191px;
+}
+
+#spiral2 {
+	top: 438.92585px;
+	left: 312.99999px;
+}
+
+#spiral3 {
+	top: 388.00001px;
+	left: 436.14809px; 
+}
+
+#spiral4 {
+	top: 263.99998px;
+	left: 489.38879px; 
+}
+
+#spiral5 {
+	top: 141px;
+	left: 436.99999px;
+}
+
+#spiral6 {
+	top: 90px;
+	left: 314px; 
+}
+
+#spiral7 {
+	top: 140.85642px;
+	left: 190.99999px; 
+}
+
+#spiral8 {
+	top: 263.99997px;
+	left: 139.14351px; 
+}
+
+
+.spiral {
+	display: block;
+}
+
+
+#content .spiral.odd {
+ -moz-animation-name: spin-forward;
+ -moz-animation-duration: 3s;
+ -moz-animation-iteration-count: infinite;
+ -moz-animation-timing-function: linear;
+
+ -webkit-animation-name: spin-forward;
+ -webkit-animation-duration: 3s;
+ -webkit-animation-iteration-count: infinite;
+ -webkit-animation-timing-function: linear;
+}
+#content .spiral.even {
+ -moz-animation-name: spin-back;
+ -moz-animation-duration: 4s;
+ -moz-animation-iteration-count: infinite;
+ -moz-animation-timing-function: linear;
+
+ -webkit-animation-name: spin-back;
+ -webkit-animation-duration: 4s;
+ -webkit-animation-iteration-count: infinite;
+ -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes spin-forward {
+  0%    { -moz-transform: rotate(0deg); -webkit-transform: rotate(0deg); }
+  100%  { -moz-transform: rotate(360deg); -webkit-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin-back {
+  0%    { -moz-transform: rotate(0deg); -webkit-transform: rotate(0deg); }
+  100%  { -moz-transform: rotate(-360deg); -webkit-transform: rotate(-360deg); }
+}
+
+@-moz-keyframes spin-forward {
+  0%    { -moz-transform: rotate(0deg); -webkit-transform: rotate(0deg); }
+  100%  { -moz-transform: rotate(360deg); -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin-back {
+  0%    { -moz-transform: rotate(0deg); -webkit-transform: rotate(0deg); }
+  100%  { -moz-transform: rotate(-360deg); -webkit-transform: rotate(-360deg); }
+}
+
+
+
+
+/* ============================= */
+/* ! Layout for mobile version   */
+/* ============================= */
+
+@media handheld, only screen and (max-width: 767px) {
+
+
+	body, html, #main_wrapper {
+ 
+		margin-left: 0px;
+		margin-right: 0px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	body {
+		font-size: 16px;
+		font-size: 1.1em;
+		-webkit-text-size-adjust: none;
+	}
+
+	p {
+		font-size: 1.2em;
+		width: 70%;
+		margin: 0 auto;
+	}
+
+}
+
+
+
+
+
+/* =================================
+// Fin. 
+/* ===============================*/
